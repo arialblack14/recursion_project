@@ -1,22 +1,17 @@
 def fibs(n)
 	return 0 if n == 0
 	return 1 if n == 1
-	puts "#{fibs(n-1)} + #{fibs(n-2)} = #{fibs(n-1) + fibs(n-2)}"
 	return fibs(n-1) + fibs(n-2)
 end
 
 def fibs2(n)
-	if n == 0
-		return 0 
-	elsif n == 1
-		return 1 
-	else
-		sum = [0, 1]
-		2.upto(n) do |element|
-			sum << element
+	arr = [0, 1]
+	if n > 1 
+		(2..n).to_a.each do |num|
+			arr << arr[num-1] + arr[num-2]
 		end
-		# sum
 	end
+	arr
 end
 
 puts fibs 5
