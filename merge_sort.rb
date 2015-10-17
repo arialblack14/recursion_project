@@ -1,32 +1,25 @@
 def merge_sort arr
-	len = arr.size
-	mid = len/2
-	
-	arr_first_half = []
-	arr_second_half = []
-	# Populating the 2 subarrays
-	arr[0, mid].each do |i|
-		arr_first_half << i
-	end
-
-	arr[mid, len-1].each do |j|
-		arr_second_half << j
-	end
-
-	puts arr_first_half
-	puts
-	puts arr_second_half
-	
-	check_length arr_first_half
-	check_length arr_second_half
+	return arr if arr.size < 2	
+	mid = arr.size/2
+	# Split the array in half
+	arr1 = arr[0..(mid-1)]
+	arr2 = arr[mid..-1]
+	# Further split the subarrays
+	a = merge_sort arr1
+	b = merge_sort arr2
+	merge a,b
 end
 
-def check_length ary
-	unless ary.size < 2
-		merge_sort(ary)
-	end	
-	puts ary
+def merge arr1, arr2
+	result = []
+	# Check if no array elements left
+	until arr1.empty? || arr2.empty?
+		# Add to result the smallest first element of the arrays
+		result << (arr1.first <= arr2.first ? arr1.shift : arr2.shift)
+	end
+	result + arr1 + arr2
 end
 
-# Test some random array
-merge_sort [1, 5, 90, 5, 43, 23, 56, 89]
+# Test random arrays
+p merge_sort [1, 5, 90, 5, 43, 23, 56, 89]
+p merge_sort [12, 51, 0, 25, 143, 2, 36, 2, 9]
